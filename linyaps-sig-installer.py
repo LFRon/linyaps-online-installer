@@ -27,8 +27,7 @@ def err_distro_not_supported ():
 # 初始化变量设置
 distro_output = subprocess.getstatusoutput('cat /etc/os-release')   # 通过os-release获取发行版详情信息
 distro_name = ""     # 用于存储发行版名称
-distro_version = ""     # 用于存储发行版代号
-# 获取当前操作系统架构    
+distro_version = ""     # 用于存储发行版版本号
 distro_arch = subprocess.getstatusoutput('uname -m')[1]   # 直接通过uname -m的输出获取当前系统架构
 # 初始化下载链接变量
 download_url = ""
@@ -41,7 +40,7 @@ for line in distro_output[1].splitlines():
     if line.startswith('VERSION_ID='): distro_version = line.split('=', 1)[1].strip('"')
 
 # 遇到ArchLinux这类玲珑已经在软件源里的直接跳过
-if (distro_name=='Arch Linux') sys.exit(0)
+if (distro_name=='Arch Linux'): sys.exit(0)
 
 # 进行下载链接处理
 download_url = f'https://gitee.com/LFRon/Linyaps-generic-linux-SIG/releases/download/latest/{distro_name}-{distro_version}-{distro_arch}.tar.gz'

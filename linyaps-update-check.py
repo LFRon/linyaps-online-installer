@@ -16,7 +16,7 @@ parser.add_argument(
     '--linyaps',  # 参数名
     type=str,      # 参数类型（字符串）
     required=True, # 是否必填（若不填则运行时报错）
-    help='指定linyaps的版本号，格式如--linyaps=1.9.9-1'
+    help='指定linyaps的版本号,格式如--linyaps=1.9.9-1'
 )
 # 解析命令行参数
 args = parser.parse_args()
