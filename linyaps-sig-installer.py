@@ -51,7 +51,7 @@ if (os.system('mkdir -p /tmp/linyaps-installer')!=0): fatal_error()      # 遇�
 if (os.system(f'cd /tmp/linyaps-installer && wget {download_url}') == 1024): err_network()     # 没网返回2
 elif (os.system(f'cd /tmp/linyaps-installer && wget {download_url}') == 2048): err_distro_not_supported()     # 发行版不支持返回1
 
-if (os.system('cd /tmp/linyaps && tar -xzf *')!=0): fatal_error()
+if (os.system('cd /tmp/linyaps && tar -xzf *')!=0): fatal_error()    # 解压失败则认为是无法预判的问题
 
 # 针对不同发行版进行安装
 if (os.system('cd /tmp/linyaps && sudo ./install.sh')!=0): fatal_error_installation()    # 安装错误就返回3
