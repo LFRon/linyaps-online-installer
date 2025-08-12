@@ -41,6 +41,7 @@ for line in distro_output[1].splitlines():
 
 # 遇到ArchLinux这类玲珑已经在软件源里的直接跳过
 if (distro_name=='Arch Linux'): sys.exit(0)
+if (distro_name=='deepin'): sys.exit(0)
 
 # 进行下载链接处理
 download_url = f'https://gitee.com/LFRon/Linyaps-generic-linux-SIG/releases/download/latest/{distro_name}-{distro_version}-{distro_arch}.tar.gz'
