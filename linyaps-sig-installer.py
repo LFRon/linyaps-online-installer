@@ -39,9 +39,19 @@ for line in distro_output[1].splitlines():
     # 捕获发行版版本号
     if line.startswith('VERSION_ID='): distro_version = line.split('=', 1)[1].strip('"')
 
+# 特殊处理:遇到Debian Testing这类没有VERSION_ID的玩意直接默认为下一发行版Forky
+if (distro_name=='debian'):
+    if (distro_version==''):
+        distro_version = 14
+
 # 遇到ArchLinux这类玲珑已经在软件源里的直接跳过
-if (distro_name=='Arch Linux'): sys.exit(0)
-if (distro_name=='deepin'): sys.exit(0)
+
+if (distro_name=='Arch Linux'):
+    print(f'- 检测到默认软件源里已经有玲珑的发行版:{distro_name}')
+    sys.exit(0)
+if (distro_name=='deepin'):
+    print(f'- 检测到默认软件源里已经有玲珑的发行版:{distro_name}')
+    sys.exit(0)
 
 # 进行下载链接处理
 download_url = f'https://gitee.com/LFRon/Linyaps-generic-linux-SIG/releases/download/latest/{distro_name}-{distro_version}-{distro_arch}.tar.gz'
@@ -52,7 +62,7 @@ if (os.system('mkdir -p /tmp/linyaps-installer')!=0): fatal_error()      # 遇�
 if (os.system(f'cd /tmp/linyaps-installer && wget {download_url}') == 1024): err_network()     # 没网返回2
 elif (os.system(f'cd /tmp/linyaps-installer && wget {download_url}') == 2048): err_distro_not_supported()     # 发行版不支持返回1
 
-if (os.system('cd /tmp/linyaps && tar -xzf *')!=0): fatal_error()    # 解压失败则认为是无法预判的问题
+if (os.system('cd /tmp/linyaps && tar -xzf *.tar.gz')!=0): fatal_error()    # 解压失败则认为是无法预判的问题
 
 # 针对不同发行版进行安装
 if (os.system('cd /tmp/linyaps && sudo ./install.sh')!=0): fatal_error_installation()    # 安装错误就返回3

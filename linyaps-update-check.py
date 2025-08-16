@@ -24,9 +24,9 @@ args = parser.parse_args()
 # 提取并使用版本号
 linyaps_cur_version = args.linyaps
 
-def err_fatal ():sys.exit(4)      # 其他未知异常返回4
-def err_network (): sys.exit(2)    # 网络问题则返回2
-def is_old (): sys.exit(1)    # 老版本返回1
+def err_fatal ():sys.exit(4)      # 其他未知异常返回1024
+def err_network (): sys.exit(2)    # 网络问题则返回512
+def is_old (): sys.exit(1)    # 老版本返回256
 def is_newest (): sys.exit(0)      # 不需要更新返回0
 
 # 从Gitee仓库获取最新的稳定版本
@@ -43,5 +43,6 @@ def get_latest_tag ():
     except requests.exceptions.RequestException as e: err_network()
     except Exception as e: err_fatal()
 
-
+if (linyaps_cur_version < get_latest_tag()): is_old()
+else: is_newest()
 
